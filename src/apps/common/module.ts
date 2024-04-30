@@ -6,6 +6,9 @@ import { CommonService } from './service';
 import { UserModule } from '../user/module';
 import { TableModule } from '../table/module';
 import { StaffModule } from '../staff/module';
+import { ItemModule } from '../item/module';
+import { UploadModule } from '../upload/module';
+import { MenuItemModule } from '../menuItem/module';
 
 @Module({
   imports: [
@@ -34,6 +37,9 @@ import { StaffModule } from '../staff/module';
     UserModule.register(),
     TableModule.register(),
     StaffModule.register(),
+    UploadModule.register(),
+    ItemModule.register(),
+    MenuItemModule.register(),
   ],
   controllers: [CommonController],
   providers: [CommonService],
