@@ -9,6 +9,7 @@ import { StaffModule } from '../staff/module';
 import { ItemModule } from '../item/module';
 import { UploadModule } from '../upload/module';
 import { MenuItemModule } from '../menuItem/module';
+import { MenuModule } from '../menu/module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { MenuItemModule } from '../menuItem/module';
     UploadModule.register(),
     ItemModule.register(),
     MenuItemModule.register(),
+    MenuModule.register(),
   ],
   controllers: [CommonController],
   providers: [CommonService],
