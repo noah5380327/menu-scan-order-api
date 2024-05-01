@@ -23,6 +23,9 @@ export class MenuService {
     if (dto.name) {
       where.name = Like(`%${dto.name}%`);
     }
+    if (dto.enable !== undefined) {
+      where.enable = Boolean(dto.enable);
+    }
 
     return await this.menuRepository.findList(where);
   }

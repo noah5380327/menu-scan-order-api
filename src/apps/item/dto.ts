@@ -5,6 +5,10 @@ export class ItemQueryDto {
   @ApiPropertyOptional()
   @IsOptional()
   name?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  enable?: string;
 }
 
 export class ItemCreateDto {

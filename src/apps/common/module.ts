@@ -10,6 +10,7 @@ import { ItemModule } from '../item/module';
 import { UploadModule } from '../upload/module';
 import { MenuItemModule } from '../menuItem/module';
 import { MenuModule } from '../menu/module';
+import { PlaceOrderModule } from '../placeOrder/module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { MenuModule } from '../menu/module';
     ItemModule.register(),
     MenuItemModule.register(),
     MenuModule.register(),
+    PlaceOrderModule.register(),
   ],
   controllers: [CommonController],
   providers: [CommonService],

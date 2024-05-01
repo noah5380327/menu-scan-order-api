@@ -5,6 +5,10 @@ export class MenuQueryDto {
   @ApiPropertyOptional()
   @IsOptional()
   name?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  enable?: string;
 }
 
 export class MenuCreateDto {
