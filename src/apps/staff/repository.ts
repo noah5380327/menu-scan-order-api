@@ -30,4 +30,10 @@ export class StaffRepository extends Repository<StaffEntity> {
 
     return result >= 1;
   }
+
+  async findOneByUsername(username: string): Promise<StaffEntity> {
+    return await this.findOne({
+      where: [{ username }],
+    });
+  }
 }

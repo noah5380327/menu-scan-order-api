@@ -1,8 +1,8 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OrderService } from './service';
-import { OrderQueryDto } from './dto';
 import { OrderEntity } from './entity';
+import { TokenPayload, TokenSubject } from '../../bases';
 
 @ApiBearerAuth()
 @ApiTags('order')
@@ -11,7 +11,9 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Get()
-  async findOrders(@Query() dto: OrderQueryDto): Promise<Array<OrderEntity>> {
-    return await this.orderService.findOrders(dto);
+  async findOrders(
+    @TokenSubject() tokenSubject: TokenPayload,
+  ): Promise<Array<OrderEntity>> {
+    return await this.orderService.findOrders(tokenSubject);
   }
 }

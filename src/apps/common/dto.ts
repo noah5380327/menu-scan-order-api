@@ -13,3 +13,5 @@ export class CommonLoginDto {
 }
 
 export class CommonRegisterDto extends CommonLoginDto {}
+
+export class CommonStaffLoginDto extends CommonLoginDto {}

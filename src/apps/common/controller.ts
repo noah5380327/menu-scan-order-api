@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, SerializeOptions } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IgnoreToken } from 'src/bases';
 import { CommonService } from './service';
-import { CommonLoginDto, CommonRegisterDto } from './dto';
+import { CommonLoginDto, CommonRegisterDto, CommonStaffLoginDto } from './dto';
 import { CommonLoginVo } from './vo';
 
 @ApiBearerAuth()
@@ -33,5 +33,14 @@ export class CommonController {
   @Post('/register')
   async register(@Body() dto: CommonRegisterDto): Promise<CommonLoginVo> {
     return await this.commonService.register(dto);
+  }
+
+  @IgnoreToken()
+  @SerializeOptions({
+    excludePrefixes: ['password'],
+  })
+  @Post('/staff/login')
+  async staffLogin(@Body() dto: CommonStaffLoginDto): Promise<CommonLoginVo> {
+    return await this.commonService.staffLogin(dto);
   }
 }

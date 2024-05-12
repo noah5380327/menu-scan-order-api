@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { TokenService, HttpException, DigestUtil, MomentUtil } from 'src/bases';
-import { CommonLoginDto, CommonRegisterDto } from './dto';
-import { CommonLoginVo } from './vo';
+import { CommonLoginDto, CommonRegisterDto, CommonStaffLoginDto } from './dto';
+import { CommonLoginVo, CommonStaffLoginVo } from './vo';
 import { UserRepository } from '../user/repository';
+import { StaffRepository } from '../staff/repository';
 
 @Injectable()
 export class CommonService {
   constructor(
     private readonly tokenService: TokenService,
     private readonly userRepository: UserRepository,
+    private readonly staffRepository: StaffRepository,
   ) {}
 
   get(): string {
@@ -58,6 +60,33 @@ export class CommonService {
 
     const token = await this.tokenService.sign({
       userId: user.id,
+    });
+
+    return {
+      user,
+      token,
+    };
+  }
+
+  async staffLogin(dto: CommonStaffLoginDto): Promise<CommonStaffLoginVo> {
+    const user = await this.staffRepository.findOneByUsername(dto.username);
+
+    if (!user) {
+      throw new HttpException('Staff is not exist');
+    }
+
+    if (!user.enable) {
+      throw new HttpException('Staff is locked');
+    }
+
+    const decodePassword = await DigestUtil.decode(user.password);
+
+    if (decodePassword !== dto.password) {
+      throw new HttpException('Password is incorrect');
+    }
+
+    const token = await this.tokenService.sign({
+      userId: user.userId + 1234567890,
     });
 
     return {
