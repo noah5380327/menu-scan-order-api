@@ -10,7 +10,10 @@ import { ItemModule } from '../item/module';
 import { UploadModule } from '../upload/module';
 import { MenuItemModule } from '../menuItem/module';
 import { MenuModule } from '../menu/module';
+import { OrderMenuItemModule } from '../orderMenuItem/module';
+import { OrderMenuModule } from '../orderMenu/module';
 import { PlaceOrderModule } from '../placeOrder/module';
+import { OrderModule } from '../order/module';
 
 @Module({
   imports: [
@@ -43,6 +46,9 @@ import { PlaceOrderModule } from '../placeOrder/module';
     ItemModule.register(),
     MenuItemModule.register(),
     MenuModule.register(),
+    OrderMenuItemModule.register(),
+    OrderMenuModule.register(),
+    OrderModule.register(),
     PlaceOrderModule.register(),
   ],
   controllers: [CommonController],

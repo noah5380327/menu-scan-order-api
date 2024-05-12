@@ -1,10 +1,11 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PlaceOrderService } from './service';
 import { TableEntity } from '../table/entity';
 import { MenuEntity } from '../menu/entity';
 import { ItemEntity } from '../item/entity';
 import { IgnoreToken } from '../../bases';
+import { PlaceOrderCreateDto } from './dto';
 
 @ApiBearerAuth()
 @ApiTags('placeOrder')
@@ -28,5 +29,11 @@ export class PlaceOrderController {
   @Get('/menus/:menuId/items')
   async findItems(@Param('menuId') menuId: number): Promise<Array<ItemEntity>> {
     return await this.placeOrderService.findItems(menuId);
+  }
+
+  @IgnoreToken()
+  @Post()
+  async createOrder(@Body() dto: PlaceOrderCreateDto): Promise<void> {
+    await this.placeOrderService.createOrder(dto);
   }
 }
