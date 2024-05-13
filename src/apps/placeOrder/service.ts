@@ -69,7 +69,7 @@ export class PlaceOrderService {
         note: '',
         tableName: dto.tableName,
         totalPrice: dto.totalPrice,
-        status: 'starting',
+        status: 'processing',
         userId: dto.userId,
       });
       for (let i = 0; i < dto.menus.length; i++) {
@@ -86,6 +86,7 @@ export class PlaceOrderService {
             itemImage: item.itemImage,
             itemPrice: item.itemPrice,
             itemDescription: item.itemDescription,
+            itemCount: item.itemCount,
             orderMenuId: orderMenu.id,
           });
         }

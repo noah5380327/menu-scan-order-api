@@ -18,4 +18,10 @@ export class OrderService {
 
     return await this.orderRepository.findList(where);
   }
+
+  async updateOrderStatusById(id: number, status: string): Promise<void> {
+    await this.orderRepository.update(id, {
+      status,
+    });
+  }
 }

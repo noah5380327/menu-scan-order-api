@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Put } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OrderService } from './service';
 import { OrderEntity } from './entity';
@@ -15,5 +15,13 @@ export class OrderController {
     @TokenSubject() tokenSubject: TokenPayload,
   ): Promise<Array<OrderEntity>> {
     return await this.orderService.findOrders(tokenSubject);
+  }
+
+  @Put('/:id/status/:status')
+  async updateOrderStatusById(
+    @Param('id') id: number,
+    @Param('status') status: string,
+  ): Promise<void> {
+    await this.orderService.updateOrderStatusById(id, status);
   }
 }

@@ -1,5 +1,6 @@
 import { UserEntity } from '../user/entity';
 import { StaffEntity } from '../staff/entity';
+import { AdminEntity } from '../admin/entity';
 
 export class CommonLoginVo {
   constructor(partial: Partial<CommonLoginVo>) {
@@ -16,5 +17,14 @@ export class CommonStaffLoginVo {
   }
 
   user: StaffEntity;
+  token: string;
+}
+
+export class CommonAdminLoginVo {
+  constructor(partial: Partial<CommonAdminLoginVo>) {
+    Object.assign(this, partial);
+  }
+
+  user: AdminEntity;
   token: string;
 }

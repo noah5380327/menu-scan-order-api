@@ -14,6 +14,7 @@ import { OrderMenuItemModule } from '../orderMenuItem/module';
 import { OrderMenuModule } from '../orderMenu/module';
 import { PlaceOrderModule } from '../placeOrder/module';
 import { OrderModule } from '../order/module';
+import { AdminModule } from '../admin/module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { OrderModule } from '../order/module';
     UserModule.register(),
     TableModule.register(),
     StaffModule.register(),
+    AdminModule.register(),
     UploadModule.register(),
     ItemModule.register(),
     MenuItemModule.register(),

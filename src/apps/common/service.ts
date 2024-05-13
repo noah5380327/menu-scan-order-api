@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { TokenService, HttpException, DigestUtil, MomentUtil } from 'src/bases';
-import { CommonLoginDto, CommonRegisterDto, CommonStaffLoginDto } from './dto';
-import { CommonLoginVo, CommonStaffLoginVo } from './vo';
+import {
+  CommonAdminLoginDto,
+  CommonLoginDto,
+  CommonRegisterDto,
+  CommonStaffLoginDto,
+} from './dto';
+import { CommonAdminLoginVo, CommonLoginVo, CommonStaffLoginVo } from './vo';
 import { UserRepository } from '../user/repository';
 import { StaffRepository } from '../staff/repository';
+import { AdminRepository } from '../admin/repository';
 
 @Injectable()
 export class CommonService {
@@ -11,6 +17,7 @@ export class CommonService {
     private readonly tokenService: TokenService,
     private readonly userRepository: UserRepository,
     private readonly staffRepository: StaffRepository,
+    private readonly adminRepository: AdminRepository,
   ) {}
 
   get(): string {
@@ -87,6 +94,29 @@ export class CommonService {
 
     const token = await this.tokenService.sign({
       userId: user.userId + 1234567890,
+    });
+
+    return {
+      user,
+      token,
+    };
+  }
+
+  async adminLogin(dto: CommonAdminLoginDto): Promise<CommonAdminLoginVo> {
+    const user = await this.adminRepository.findOneByUsername(dto.username);
+
+    if (!user) {
+      throw new HttpException('Admin is not exist');
+    }
+
+    const decodePassword = await DigestUtil.decode(user.password);
+
+    if (decodePassword !== dto.password) {
+      throw new HttpException('Password is incorrect');
+    }
+
+    const token = await this.tokenService.sign({
+      userId: user.id + 9876543210,
     });
 
     return {

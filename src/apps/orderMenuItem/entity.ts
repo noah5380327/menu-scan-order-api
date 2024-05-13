@@ -15,6 +15,9 @@ export class OrderMenuItemEntity extends BaseEntity {
   @Column({ name: 'item_description' })
   itemDescription: string;
 
+  @Column({ name: 'item_count' })
+  itemCount: number;
+
   @Column({ name: 'order_menu_id' })
   orderMenuId: number;
 }
